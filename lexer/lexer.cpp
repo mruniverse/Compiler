@@ -13,10 +13,15 @@ void token_number(int i){
 }
 
 void token_symbol(char c){
-    t.type = SYMBOL
+    t.type = SYMBOL;
     t.value = c;
 }
 
 void print_token(struct token t){
-    printf("\n%d | %d \n", t.type, t.value);
+    if (t.type == SYMBOL){
+        printf("\n%d | %c \n", t.type, t.value);
+    }
+    else{
+        printf("\n%d | %d \n", t.type, t.value);
+    }
 }

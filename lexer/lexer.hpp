@@ -1,5 +1,5 @@
-#define NUMBER 256;
-#define SYMBOL 257;
+#define NUMBER 256
+#define SYMBOL 257
 
 void token_number(int i);
 void token_symbol(char c);

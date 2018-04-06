@@ -22,28 +22,27 @@ char nextToken(){
 }
 
 void term(){
-    if ('+' || '-'){         //var ==================================
-        printf("%d",lookahead);
-        // match(lookahead);
-        lookahead = nextToken();
-
-        token_symbol(lookahead);
-        print_token(t);
-
-    }
-    else if(isdigit(lookahead)) {    //number ===============================
+    // if (!isdigit(lookahead)){         //var ==================================
+    //     // printf("%d",lookahead);
+    //     // match(lookahead);
+    //     puts("teste");
+    //     token_symbol(lookahead);
+    //     print_token(t);
+    //
+    // }
+    // else
+    if(isdigit(lookahead)) {    //number ===============================
         //Identify more than one number =====================================
         int a = 0;
         do{
             a = 10*a+atoi(&lookahead);
-            lookahead = nextToken();
+            match(lookahead);
         }while(isdigit(lookahead));
         printf("%d ", a);
         //===================================================================
         token_number(a);
         print_token(t);
         // print(lookahead);
-        // match(lookahead);
     }
     else{
         printf("Syntax error on term\n");
@@ -53,9 +52,15 @@ void term(){
 
 void rest(){
     if (lookahead == '+'){
+        token_symbol('+');
+        print_token(t);
+
         match('+'); term(); printf("%c",'+'); rest();
     }
     else if (lookahead == '-'){
+        token_symbol('-');
+        print_token(t);
+
         match('-'); term(); printf("%c",'+'); rest();
     }
     else if (lookahead == EOF){
