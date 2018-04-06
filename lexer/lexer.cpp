@@ -12,13 +12,18 @@ void token_number(int i){
     t.value = i;
 }
 
-void token_symbol(char c){
-    t.type = SYMBOL;
+void token_operator(char c){
+    t.type = OPERATOR;
+    t.value = c;
+}
+
+void token_variable(char c){
+    t.type = VARIABLE;
     t.value = c;
 }
 
 void print_token(struct token t){
-    if (t.type == SYMBOL){
+    if (t.type == VARIABLE || t.type == OPERATOR){
         printf("\n%d | %c \n", t.type, t.value);
     }
     else{

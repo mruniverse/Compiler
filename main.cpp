@@ -6,7 +6,6 @@
 using namespace std;
 
 int main(){
-    input = "24+54-123";
-    lookahead = nextToken();
+    input = "x=2+2";
     expr();
 }

@@ -4,12 +4,14 @@
 #include <cstdio>
 #include <cctype>
 #include <cstdlib>
+#include <string>
 
 using namespace std;
 
 int pos = 0;
 string input;
 char lookahead;
+string postfix;
 // struct token t;
 
 char nextToken(){
@@ -22,16 +24,14 @@ char nextToken(){
 }
 
 void term(){
-    // if (!isdigit(lookahead)){         //var ==================================
-    //     // printf("%d",lookahead);
-    //     // match(lookahead);
-    //     puts("teste");
-    //     token_symbol(lookahead);
-    //     print_token(t);
-    //
-    // }
-    // else
-    if(isdigit(lookahead)) {    //number ===============================
+    if (isalpha(lookahead)){         //var ==================================
+        printf("%c ", lookahead);
+        postfix += lookahead;
+        token_variable(lookahead);
+        print_token(t);
+        match(lookahead);
+    }
+    else if(isdigit(lookahead)) {    //number ===============================
         //Identify more than one number =====================================
         int a = 0;
         do{
@@ -39,6 +39,7 @@ void term(){
             match(lookahead);
         }while(isdigit(lookahead));
         printf("%d ", a);
+        // postfix += to_string(a);
         //===================================================================
         token_number(a);
         print_token(t);
@@ -52,18 +53,25 @@ void term(){
 
 void rest(){
     if (lookahead == '+'){
-        token_symbol('+');
+        token_operator('+');
         print_token(t);
 
-        match('+'); term(); printf("%c",'+'); rest();
+        match('+'); term(); printf("%c", '+'); rest();
     }
     else if (lookahead == '-'){
-        token_symbol('-');
+        token_operator('-');
         print_token(t);
 
-        match('-'); term(); printf("%c",'+'); rest();
+        match('-'); term(); printf("%c", '-'); rest();
+    }
+    else if (lookahead == '='){
+        token_operator('=');
+        print_token(t);
+
+        match('='); term(); printf("%c", '='); rest();
     }
     else if (lookahead == EOF){
+        // printf("\n%s\n", postfix);
         printf("\nSuccess.\n");
     }
     else {
@@ -73,6 +81,7 @@ void rest(){
 }
 
 void expr(){
+    lookahead = nextToken();
     term(); rest();
 }
 
