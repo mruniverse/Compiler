@@ -1,4 +1,4 @@
-#include "translate.hpp"
+#include "parser.hpp"
 #include <iostream>
 #include <cstdio>
 #include <cctype>
@@ -6,13 +6,9 @@
 
 using namespace std;
 
+int pos = 0;
 string input;
 char lookahead;
-int pos = 0;
-
-void print(char c){
-    printf("%c", c);
-}
 
 char nextToken(){
     if(pos < input.length()){
@@ -25,7 +21,7 @@ char nextToken(){
 
 void term(){
     if (isalpha(lookahead)){         //var ================================
-        print(lookahead);
+        printf("%d",lookahead);
         match(lookahead);
     }
     else if(isdigit(lookahead)) {    //number =============================
@@ -33,10 +29,9 @@ void term(){
 
         do{
             a = 10*a+atoi(&lookahead);
-            print(lookahead);
             lookahead = nextToken();
         }while(isdigit(lookahead));
-
+        printf("%d ", a);
         // print(lookahead);
         // match(lookahead);
     }
@@ -48,10 +43,10 @@ void term(){
 
 void rest(){
     if (lookahead == '+'){
-        match('+'); term(); print('+'); rest();
+        match('+'); term(); printf("%c",'+'); rest();
     }
     else if (lookahead == '-'){
-        match('-'); term(); print('-'); rest();
+        match('-'); term(); printf("%c",'+'); rest();
     }
     else if (lookahead == EOF){
         printf("\nSuccess.\n");
