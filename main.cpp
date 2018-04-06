@@ -1,14 +1,12 @@
 #include "parser/parser.hpp"
+#include "lexer/lexer.hpp"
 #include <iostream>
 #include <string>
 
 using namespace std;
 
 int main(){
-    extern string input;
-    extern char lookahead;
-
-    input = "24+54";
+    input = "24+54-123";
     lookahead = nextToken();
     expr();
 }

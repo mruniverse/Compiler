@@ -1,4 +1,5 @@
 #include "parser.hpp"
+#include "../lexer/lexer.hpp"
 #include <iostream>
 #include <cstdio>
 #include <cctype>
@@ -9,6 +10,7 @@ using namespace std;
 int pos = 0;
 string input;
 char lookahead;
+// struct token t;
 
 char nextToken(){
     if(pos < input.length()){
@@ -20,18 +22,26 @@ char nextToken(){
 }
 
 void term(){
-    if (isalpha(lookahead)){         //var ================================
+    if ('+' || '-'){         //var ==================================
         printf("%d",lookahead);
-        match(lookahead);
-    }
-    else if(isdigit(lookahead)) {    //number =============================
-        int a = 0;
+        // match(lookahead);
+        lookahead = nextToken();
 
+        token_symbol(lookahead);
+        print_token(t);
+
+    }
+    else if(isdigit(lookahead)) {    //number ===============================
+        //Identify more than one number =====================================
+        int a = 0;
         do{
             a = 10*a+atoi(&lookahead);
             lookahead = nextToken();
         }while(isdigit(lookahead));
         printf("%d ", a);
+        //===================================================================
+        token_number(a);
+        print_token(t);
         // print(lookahead);
         // match(lookahead);
     }
