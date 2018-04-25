@@ -8,25 +8,13 @@
 
 using namespace std;
 
-int pos = 0;
-string input;
 char lookahead;
-string postfix;
+// string postfix;
 // struct token t;
-
-char nextToken(){
-    if(pos < input.length()){
-        return input[pos++];
-    }
-    else{
-        return EOF;
-    }
-}
 
 void term(){
     if (isalpha(lookahead)){         //var ==================================
         printf("%c ", lookahead);
-        postfix += lookahead;
         token_variable(lookahead);
         print_token(t);
         match(lookahead);
@@ -73,6 +61,7 @@ void rest(){
     else if (lookahead == EOF){
         // printf("\n%s\n", postfix);
         printf("\nSuccess.\n");
+        pos = 0;
     }
     else {
         printf("Syntax error on x\n");
@@ -83,13 +72,4 @@ void rest(){
 void expr(){
     lookahead = nextToken();
     term(); rest();
-}
-
-void match(char c){
-    if (lookahead == c){
-        lookahead = nextToken();
-    }
-    else {
-        printf("Match error");
-    }
 }

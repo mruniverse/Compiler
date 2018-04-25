@@ -6,6 +6,8 @@
 using namespace std;
 
 struct token t;
+string input;
+int pos = 0;
 
 void token_number(int i){
     t.type = NUMBER;
@@ -20,6 +22,24 @@ void token_operator(char c){
 void token_variable(char c){
     t.type = VARIABLE;
     t.value = c;
+}
+
+char nextToken(){
+    if(pos < input.length()){
+        return input[pos++];
+    }
+    else{
+        return EOF;
+    }
+}
+
+void match(char c){
+    if (lookahead == c){
+        lookahead = nextToken();
+    }
+    else {
+        printf("Match error");
+    }
 }
 
 void print_token(struct token t){

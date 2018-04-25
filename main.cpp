@@ -6,6 +6,9 @@
 using namespace std;
 
 int main(){
-    input = "x=2+2";
-    expr();
+    // input = "x=2+2";
+    while (true){
+        cin >> input;
+        expr();
+    }
 }
